@@ -1,0 +1,170 @@
+
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <script type='text/javascript'>
+                function CrearAjax(){
+                    var obj; //variable que recogerá el objeto
+                    if (window.XMLHttpRequest) { //código para mayoría de navegadores
+                      obj=new XMLHttpRequest();
+                    }
+                    return obj;
+                }
+
+                function ajaxLoad(method ,URL,displayElementId,sendData){
+                      var ajax=CrearAjax();
+                      if(!ajax){
+                        alert('No existe');
+                        return;
+                      }
+                      ajax.open(method,URL,true);
+
+                      /*ajax.onreadystatechange = function(){
+                        if(ajax.readyState == 4 && ajax.status==200)
+                        {
+                        var ajax_result = ajax.responseText;
+                        var el = document.getElementById(displayElementId);
+                        el.innerHTML = ajax_result;
+                        }
+                      }
+                      
+                      ajax.send(null);
+                      document.write("aaquii!!");*/
+
+                }
+
+                function Enviar(state){
+                    ajaxLoad('GET',state+'.html',null,null);
+                  }
+                
+
+
+
+                function functionProgress2(i,x) {
+
+                     barra1=document.getElementById('barra');
+
+                    if(x==-1){
+                        msj=document.getElementById('mensaje');
+                        barra = document.getElementById("barra");
+                        l1 = document.getElementById("ll1");
+                        l2 = document.getElementById("ll2");
+                        max = 169;
+                        TIME = 80;
+                        
+                         if (barra1.style.height=="0px" || barra1.style.height=="") { 
+                              ban=0;
+                              msj.innerText="";
+                              vaciar_b=document.getElementById('v1');
+                              llenar_b=document.getElementById('ll');
+                              Enviar('inivaciar'); 
+                              llenar_b.disabled = true;
+                              vaciar_b.disabled= true;
+                                                  //    AQUIIIII
+
+                        }else{
+                                ban=1;
+                                msj.innerText="El tanque esta vacio! ";
+
+                        }
+                    }
+                    
+                    if (i > max){
+                      ban=1;
+                      llenar_b.disabled = false;
+                      vaciar_b.disabled=false;
+                      l2.setAttribute("style", "height: 10px; background-color: #808B96;");
+                      Enviar('finvaciar'); //--- AQUIII
+                    }
+                    if(ban==0){
+                      i=i+2;
+                      barra.setAttribute("style", "height:"+i+"px; width: 150px; background: #D0D3D4;");
+                      l1.setAttribute("style", "height: 10px; background-color: #808B96;");
+                      l2.setAttribute("style", "height: 10px; background-color: #CB4335;");
+                      setTimeout("functionProgress2(" + (i) +","+ (0) + ")", TIME);
+                    }
+  
+                  
+
+                }
+                function functionProgress1(i,x) {
+                    
+                    barra1=document.getElementById("barra");
+                  
+                   
+
+                        if(x==-1){
+                            barra = document.getElementById("barra");
+                            msj=document.getElementById("mensaje");
+                            max = 0;
+                            TIME1 = 80;
+                            
+                            if (barra1.style.height=="170px") { 
+                              ban=0;
+                              msj.innerText="";
+                              vaciar_b=document.getElementById('v1');
+                                llenar_b=document.getElementById('ll');
+                                llenar_b.disabled = true;
+                                vaciar_b.disabled= true;
+                                Enviar('inillenar'); //-------AQUI 
+                            }else{
+                                ban=1;
+                                msj.innerText="El tanque esta lleno! ";
+                               
+                            }
+                            l1 = document.getElementById("ll1");
+                            l2 = document.getElementById("ll2");
+                        }
+                        // decremento el valor de i al minimo
+                        
+                        if (i < max){
+                          ban=1;
+                          llenar_b.disabled = false;
+                          vaciar_b.disabled= false;
+                          l1.setAttribute("style", "height: 10px; background-color: #808B96;");
+                          Enviar('finllenar'); //-------- AQUI
+                        }
+                        if(ban==0){
+                          i=i-2;
+                          barra.setAttribute("style", "height:"+i+"px; width: 150px; background: #D0D3D4;");
+                          l1.setAttribute("style", "height: 10px; background-color: #CB4335;");
+                          l2.setAttribute("style", "height: 10px; background-color: #808B96;");
+                          setTimeout("functionProgress1(" + (i) +","+ (0) + ")", TIME1);
+                        }
+                    
+                    // actualizo  .innerText agregar texto
+
+                }
+        </script>
+    </head>
+    <body style="overflow: hidden; height: 100%; display: -webkit-flex; display: -ms-flexbox; display: flex; -webkit-justify-content: center; -ms-flex-pack: center; justify-content: center; -webkit-align-items: center; -ms-flex-align: center; align-items: center;"><br><br><br>
+
+    	<div id="llave1" style="position: absolute; top:  60px;  left: 40%; font: 120% monospace;">Llave 1 &nbsp;<HR id="ll1" width=60% align="right" color="#808B96"  style="height: 10px; background-color: #808B96;"></div>
+
+    	<div id="etiquetas" style="position: absolute; top:  260px; left: 40%; font: 120% monospace;">Limite</div>
+		<div id="contenedor" style="width: 150px; height: 200px; background: #5DADE2; position: absolute; top:  100px;left: 45%;">
+		  <div id="barra"  style="height:0px; width: 150px; background: #D0D3D4;">
+		    <HR width=100% align="center" color="#C0392B" style="position: absolute; top:160px; left: 0%;">
+		  </div>
+		</div>
+        
+		<div id="llave2" style="position: absolute; top:  262px; left: 56%; font: 120% monospace;"> &nbsp; Llave 2 <HR id="ll2" width=50% align="left" color="#808B96"  style="height: 10px; background-color: #808B96;">
+        </div>
+       
+        <form id='form' name="form1" action="" method="post" style="position:relative;right: 300px;top:150px; font-family:verdana,arial; font-size:9pt; text-align: center;">
+
+            <legend id="eti" style=" font-size:14px; font-family:"Tahoma", "Geneva", sans-serif; font-weight:bold; color:#C0392B; text-align: center;">Sistema de llenado</legend>
+            <br>
+            <fieldset>
+                <input id='v1' type="button" name="boton1" value="Vaciar"  onclick="functionProgress2(0,-1);"/>
+                <input id='ll' type="button" name="boton" value="Llenar"  onclick="functionProgress1(169,-1);"/>
+            </fieldset>  
+             <label id="mensaje">  </label>
+
+                
+        </form>
+
+	</body>
+    </html> 
